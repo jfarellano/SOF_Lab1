@@ -4,7 +4,11 @@ import Code.Cliente;
 import Code.Empresa;
 import Code.Factura;
 import Code.Utilidades;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class NuevaCompra extends javax.swing.JFrame {
@@ -13,12 +17,14 @@ public class NuevaCompra extends javax.swing.JFrame {
     int cc;
     String[][] items;
     int i = 0;
+    float total;
 
     public NuevaCompra(Empresa e, int cc) {
         initComponents();
         this.e = e;
         this.cc = cc;
         this.items = new String[30][4];
+        this.total = 0;
         this.setVisible(true);
         this.setLocationRelativeTo(null);
     }
@@ -39,7 +45,7 @@ public class NuevaCompra extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        total = new javax.swing.JLabel();
+        total_lb = new javax.swing.JLabel();
 
         jButton4.setText("jButton4");
 
@@ -50,7 +56,7 @@ public class NuevaCompra extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Codigo", "Nombre", "Precio", "Cantidad"
+                "Codigo", "Cantidad", "Precio", "Nombre"
             }
         ) {
             Class[] types = new Class [] {
@@ -119,7 +125,7 @@ public class NuevaCompra extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Total:");
 
-        total.setText("$");
+        total_lb.setText("$");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -150,7 +156,7 @@ public class NuevaCompra extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(total)
+                            .addComponent(total_lb)
                             .addComponent(jLabel4))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -179,7 +185,7 @@ public class NuevaCompra extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(total)
+                        .addComponent(total_lb)
                         .addGap(18, 18, 18)
                         .addComponent(finalizar)))
                 .addContainerGap())
@@ -197,18 +203,19 @@ public class NuevaCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_cantidadMouseClicked
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-        if(codigo.getText() != "" && cantidad.getText() != ""){
-            //if(e.inventario.get(Integer.parseInt(codigo.getText())) != null){
+        if(codigo.getText() != "" && cantidad.getText() != "" && Integer.parseInt(cantidad.getText()) > 0){
+            if(e.inventario.get(Integer.parseInt(codigo.getText())) != null){
                 items[i][0] = codigo.getText();
-                items[i][1] = e.inventario.get(Integer.parseInt(codigo.getText())).getNombre();
+                items[i][3] = e.inventario.get(Integer.parseInt(codigo.getText())).getNombre();
                 items[i][2] = String.valueOf(e.inventario.get(Integer.parseInt(codigo.getText())).getPrecio());
-                items[i][3] = cantidad.getText();
+                items[i][1] = cantidad.getText();
+                total += Float.parseFloat(items[i][2]) * Float.parseFloat(items[i][1]);
                 i++;
-            //}
-        }
-        
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.addRow(items[i - 1]);
+                total_lb.setText("$ " + total);
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                model.addRow(items[i - 1]);
+            }else JOptionPane.showMessageDialog(null, "Producto no existente");
+        }else JOptionPane.showMessageDialog(null, "Campo vacio");
     }//GEN-LAST:event_agregarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
@@ -216,15 +223,20 @@ public class NuevaCompra extends javax.swing.JFrame {
         int[] selectedRows = jTable1.getSelectedRows();
         if (selectedRows.length > 0) {
             for (int j = selectedRows.length - 1; j >= 0; j--) {
+                total -= Float.parseFloat(items[j][2]) * Float.parseFloat(items[j][1]);
                 model.removeRow(selectedRows[j]);
                 Utilidades.eliminarMatriz(selectedRows[j], items);
             }
             i -= selectedRows.length;
+            total_lb.setText("$ " + total);
         }
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void finalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalizarActionPerformed
-        Factura f = new Factura(items, "Hola");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        e.buscarCliente(cc).setPuntos(e.buscarCliente(cc).getPuntos() + (int) total / 100);
+        Factura f = new Factura(items, dateFormat.format(date), total, i);
         e.buscarCliente(cc).agregarCompra(f);
         new MainMenu(e);
         this.dispose();
@@ -244,6 +256,6 @@ public class NuevaCompra extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JLabel total;
+    private javax.swing.JLabel total_lb;
     // End of variables declaration//GEN-END:variables
 }

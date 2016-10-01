@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Cliente {
     private String nombre, direccion, email, telefono;
-    private ArrayList<Factura> compras;
+    public ArrayList<Factura> compras;
     private int puntos,  id;
 
     public Cliente(String nombre, String direccion, String email, String telefono, int id) {

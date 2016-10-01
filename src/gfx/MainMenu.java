@@ -40,6 +40,11 @@ public class MainMenu extends javax.swing.JFrame {
         });
 
         clientes.setText("Clientes");
+        clientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clientesActionPerformed(evt);
+            }
+        });
 
         Inventario.setText("Inventario");
         Inventario.addActionListener(new java.awt.event.ActionListener() {
@@ -97,6 +102,11 @@ public class MainMenu extends javax.swing.JFrame {
         new ListadoProductos(e);
         this.dispose();
     }//GEN-LAST:event_InventarioActionPerformed
+
+    private void clientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientesActionPerformed
+        new ListadoClientes(e);
+        this.dispose();
+    }//GEN-LAST:event_clientesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

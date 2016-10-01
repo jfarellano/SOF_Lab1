@@ -20,7 +20,7 @@ public class ListadoClientes extends javax.swing.JFrame {
     
     private void cargarTabla(){
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        String[] row = new String[3];
+        String[] row = new String[6];
         for(Cliente c: e.clientes){
             row[0] = c.getNombre();
             row[1] = String.valueOf(c.getId());
@@ -74,10 +74,25 @@ public class ListadoClientes extends javax.swing.JFrame {
         modificar.setText("Modificar");
 
         eliminar.setText("Eliminar");
+        eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarActionPerformed(evt);
+            }
+        });
 
         regresar.setText("Regresar");
+        regresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                regresarActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Mostrar Compras");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -115,6 +130,30 @@ public class ListadoClientes extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        int[] selectedRows = jTable1.getSelectedRows();
+        if (selectedRows.length > 0) {
+            for (int j = selectedRows.length - 1; j >= 0; j--) {
+                model.removeRow(selectedRows[j]);
+                e.eliminarCliente(e.clientes.get(selectedRows[j]));
+            }
+        }
+        clear();
+        cargarTabla();
+    }//GEN-LAST:event_eliminarActionPerformed
+
+    private void regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarActionPerformed
+        new MainMenu(e);
+        this.dispose();
+    }//GEN-LAST:event_regresarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        new FacturasCliente(e, e.clientes.get(jTable1.getSelectedRow()));
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
