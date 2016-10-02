@@ -25,7 +25,7 @@ public class ListadoProductos extends javax.swing.JFrame {
         String[] row = new String[3];
         for(Producto p: e.inventario){
             row[0] = String.valueOf(e.inventario.indexOf(p));
-            row[1] = p.getNombre();
+            row[1] = Utilidades.espaciosSalida(p.getNombre());
             row[2] = String.valueOf(p.getPrecio());
             model.addRow(row);
             cantidad++;
@@ -171,8 +171,8 @@ public class ListadoProductos extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         String[] row = new String[3];
         row[0] = String.valueOf(cantidad);
-        row[1] = nombre.getText();
-        row[2] = precio.getText();
+        row[1] = Utilidades.espaciosEntrada(nombre.getText());
+        row[2] = Utilidades.espaciosEntrada(precio.getText());
         e.inventario.add(new Producto(nombre.getText(), Float.parseFloat(precio.getText())));
         model.addRow(row);
         cantidad++;

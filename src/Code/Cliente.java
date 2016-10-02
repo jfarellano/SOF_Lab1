@@ -76,5 +76,12 @@ public class Cliente {
         this.puntos = puntos;
     }
     
+    public int getTamano(){
+        int i = 0;
+        for(Factura f: compras){
+            i++;
+        }
+        return i;
+    }
     
 }

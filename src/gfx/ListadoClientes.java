@@ -3,6 +3,7 @@ package gfx;
 import Code.Cliente;
 import Code.Empresa;
 import Code.Producto;
+import Code.Utilidades;
 import javax.swing.table.DefaultTableModel;
 
 public class ListadoClientes extends javax.swing.JFrame {
@@ -22,9 +23,9 @@ public class ListadoClientes extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         String[] row = new String[6];
         for(Cliente c: e.clientes){
-            row[0] = c.getNombre();
+            row[0] = Utilidades.espaciosSalida(c.getNombre());
             row[1] = String.valueOf(c.getId());
-            row[2] = c.getDireccion();
+            row[2] = Utilidades.espaciosSalida(c.getDireccion());
             row[3] = c.getEmail();
             row[4] = c.getTelefono();
             row[5] = String.valueOf(c.getPuntos());

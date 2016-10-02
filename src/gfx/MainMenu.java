@@ -1,6 +1,10 @@
 package gfx;
 
 import Code.Empresa;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MainMenu extends javax.swing.JFrame {
     
@@ -56,6 +60,11 @@ public class MainMenu extends javax.swing.JFrame {
         recaudo.setText("Recaudo");
 
         salir.setText("Salir");
+        salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -107,6 +116,19 @@ public class MainMenu extends javax.swing.JFrame {
         new ListadoClientes(e);
         this.dispose();
     }//GEN-LAST:event_clientesActionPerformed
+
+    private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
+        try {
+            File f = new File("Cliente.txt");
+            f.delete();
+            File g = new File("Inventario.txt");
+            g.delete();
+            e.guardar();
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.exit(0);
+    }//GEN-LAST:event_salirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -7,6 +7,7 @@ package gfx;
 
 import Code.Cliente;
 import Code.Empresa;
+import Code.Utilidades;
 
 public class NuevoCliente extends javax.swing.JFrame {
     
@@ -141,7 +142,7 @@ public class NuevoCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_emailMouseClicked
 
     private void crearClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearClienteActionPerformed
-        e.agregarCliente(new Cliente(nombre.getText(), direccion.getText(), email.getText(), telefono.getText(), cc));
+        e.agregarCliente(new Cliente(Utilidades.espaciosEntrada(nombre.getText()), Utilidades.espaciosEntrada(direccion.getText()), Utilidades.espaciosEntrada(email.getText()), Utilidades.espaciosEntrada(email.getText()), cc));
         for(Cliente c: e.clientes){
             System.out.println(c.getNombre()+ ", " + c.getId());
         }
