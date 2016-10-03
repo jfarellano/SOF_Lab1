@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Cliente {
     private String nombre, direccion, email, telefono;
     public ArrayList<Factura> compras;
-    private int puntos,  id;
+    private int puntos,  id, premio;
 
     public Cliente(String nombre, String direccion, String email, String telefono, int id) {
         this.nombre = nombre;
@@ -14,6 +14,7 @@ public class Cliente {
         this.telefono = telefono;
         this.id = id;
         this.puntos = 0;
+        this.premio = 0;
         this.compras = new ArrayList<>();
     }
 
@@ -74,6 +75,14 @@ public class Cliente {
 
     public void setPuntos(int puntos) {
         this.puntos = puntos;
+    }
+
+    public int getPremio() {
+        return premio;
+    }
+
+    public void setPremio(int premio) {
+        this.premio = premio;
     }
     
     public int getTamano(){

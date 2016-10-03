@@ -3,6 +3,7 @@ package gfx;
 import Code.Cliente;
 import Code.Empresa;
 import Code.Factura;
+import Code.Producto;
 import Code.Utilidades;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -27,6 +28,34 @@ public class NuevaCompra extends javax.swing.JFrame {
         this.total = 0;
         this.setVisible(true);
         this.setLocationRelativeTo(null);
+    }
+    
+    public int productoExiste(int p){
+        for(int j = 0; j < i; j++){
+            if(Integer.parseInt(items[j][0]) == p) return j;
+        }
+        return 9999999;
+    }
+    
+    private void cargarTabla(){
+        int cantidad = 0;
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        String[] row = new String[4];
+        while(cantidad < i){
+            for(int j = 0; j < 4; j++){
+                row[j] = items[cantidad][j];
+            }
+            model.addRow(row);
+            cantidad++;
+        }
+    }
+    
+    private void clear(){
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        int rowCount = model.getRowCount();
+        for (int i = rowCount - 1; i >= 0; i--) {
+            model.removeRow(i);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -203,19 +232,27 @@ public class NuevaCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_cantidadMouseClicked
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-        if(codigo.getText() != "" && cantidad.getText() != "" && Integer.parseInt(cantidad.getText()) > 0){
-            if(e.inventario.get(Integer.parseInt(codigo.getText())) != null){
-                items[i][0] = codigo.getText();
-                items[i][3] = e.inventario.get(Integer.parseInt(codigo.getText())).getNombre();
-                items[i][2] = String.valueOf(e.inventario.get(Integer.parseInt(codigo.getText())).getPrecio());
-                items[i][1] = cantidad.getText();
-                total += Float.parseFloat(items[i][2]) * Float.parseFloat(items[i][1]);
-                i++;
-                total_lb.setText("$ " + total);
-                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-                model.addRow(items[i - 1]);
-            }else JOptionPane.showMessageDialog(null, "Producto no existente");
-        }else JOptionPane.showMessageDialog(null, "Campo vacio");
+        if(productoExiste(Integer.parseInt(codigo.getText())) == 9999999){
+            if(codigo.getText() != "" && cantidad.getText() != "" && Integer.parseInt(cantidad.getText()) > 0){
+                if(e.inventario.get(Integer.parseInt(codigo.getText())) != null){
+                    items[i][0] = codigo.getText();
+                    items[i][3] = e.inventario.get(Integer.parseInt(codigo.getText())).getNombre();
+                    items[i][2] = String.valueOf(e.inventario.get(Integer.parseInt(codigo.getText())).getPrecio());
+                    items[i][1] = cantidad.getText();
+                    total += Float.parseFloat(items[i][2]) * Float.parseFloat(items[i][1]);
+                    i++;
+                    total_lb.setText("$ " + total);
+                    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                    model.addRow(items[i - 1]);
+                }else JOptionPane.showMessageDialog(null, "Producto no existente");
+            }else JOptionPane.showMessageDialog(null, "Campo vacio");
+        }else{
+            items[productoExiste(Integer.parseInt(codigo.getText()))][1] = String.valueOf(Integer.parseInt(items[productoExiste(Integer.parseInt(codigo.getText()))][1]) + Integer.parseInt(cantidad.getText()));
+            total += Float.parseFloat(items[productoExiste(Integer.parseInt(codigo.getText()))][2]) * Float.parseFloat(cantidad.getText());
+            total_lb.setText("$ " + total);
+            clear();
+            cargarTabla();
+        }
     }//GEN-LAST:event_agregarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed

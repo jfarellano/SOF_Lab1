@@ -1,10 +1,13 @@
 package gfx;
 
+import Code.Cliente;
 import Code.Empresa;
+import Code.Factura;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class MainMenu extends javax.swing.JFrame {
     
@@ -58,6 +61,11 @@ public class MainMenu extends javax.swing.JFrame {
         });
 
         recaudo.setText("Recaudo");
+        recaudo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                recaudoActionPerformed(evt);
+            }
+        });
 
         salir.setText("Salir");
         salir.addActionListener(new java.awt.event.ActionListener() {
@@ -129,6 +137,16 @@ public class MainMenu extends javax.swing.JFrame {
         }
         System.exit(0);
     }//GEN-LAST:event_salirActionPerformed
+
+    private void recaudoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recaudoActionPerformed
+        float sum = 0;
+        for(Cliente c: e.clientes){
+            for(Factura f: c.compras){
+                sum += f.getTotal();
+            }
+        }
+        JOptionPane.showMessageDialog(null, "La empresa ha vendido $" + sum + ".");
+    }//GEN-LAST:event_recaudoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

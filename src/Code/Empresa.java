@@ -22,6 +22,13 @@ public class Empresa {
         return null;
     }
     
+    public Producto buscarProducto(String n){
+        for(Producto p: inventario){
+            if(p.getNombre().equals(n)) return p;
+        }
+        return null;
+    }
+    
     public void guardar() throws IOException{
         String[] guardado = new String[10000];
         int i = 0;
@@ -32,6 +39,7 @@ public class Empresa {
             guardado[i] = c.getTelefono(); i++;
             guardado[i] = String.valueOf(c.getId()); i++;
             guardado[i] = String.valueOf(c.getPuntos()); i++;
+            guardado[i] = String.valueOf(c.getPremio()); i++;
             guardado[i] = String.valueOf(c.getTamano()); i++;
             for(Factura f: c.compras){
                 guardado[i] = f.getFecha(); i++;
@@ -59,15 +67,17 @@ public class Empresa {
         int i = 0;
         while( i < clt.length){
             String nombre, direccion, mail, telefono;
-            int puntos, id;
+            int puntos, id, premio;
             nombre = clt[i]; i++;
             direccion = clt[i]; i++;
             mail = clt[i]; i++;
             telefono = clt[i]; i++;
             id = Integer.parseInt(clt[i]); i++;
             puntos = Integer.parseInt(clt[i]); i++;
+            premio = Integer.parseInt(clt[i]); i++;
             Cliente c = new Cliente(nombre, direccion, mail,telefono, id);
             c.setPuntos(puntos);
+            c.setPremio(premio);
             int tamano = Integer.parseInt(clt[i]); i++;
             for(int j = 0; j < tamano; j++){
                 String fecha = clt[i] + " " + clt[i + 1]; i++; i++;

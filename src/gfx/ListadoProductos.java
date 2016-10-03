@@ -3,6 +3,7 @@ package gfx;
 import Code.Empresa;
 import Code.Producto;
 import Code.Utilidades;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ListadoProductos extends javax.swing.JFrame {
@@ -168,14 +169,16 @@ public class ListadoProductos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        String[] row = new String[3];
-        row[0] = String.valueOf(cantidad);
-        row[1] = Utilidades.espaciosEntrada(nombre.getText());
-        row[2] = Utilidades.espaciosEntrada(precio.getText());
-        e.inventario.add(new Producto(nombre.getText(), Float.parseFloat(precio.getText())));
-        model.addRow(row);
-        cantidad++;
+        if(e.buscarProducto(nombre.getText()) == null){
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            String[] row = new String[3];
+            row[0] = String.valueOf(cantidad);
+            row[1] = Utilidades.espaciosEntrada(nombre.getText());
+            row[2] = Utilidades.espaciosEntrada(precio.getText());
+            e.inventario.add(new Producto(nombre.getText(), Float.parseFloat(precio.getText())));
+            model.addRow(row);
+            cantidad++;
+        }else JOptionPane.showMessageDialog(null, "Producto ya existente");
     }//GEN-LAST:event_agregarActionPerformed
 
     private void regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarActionPerformed

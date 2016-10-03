@@ -8,6 +8,7 @@ package gfx;
 import Code.Cliente;
 import Code.Empresa;
 import Code.Utilidades;
+import javax.swing.JOptionPane;
 
 public class NuevoCliente extends javax.swing.JFrame {
     
@@ -22,6 +23,8 @@ public class NuevoCliente extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.cedula.setText(String.valueOf(cc));
     }
+    
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -142,12 +145,11 @@ public class NuevoCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_emailMouseClicked
 
     private void crearClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearClienteActionPerformed
-        e.agregarCliente(new Cliente(Utilidades.espaciosEntrada(nombre.getText()), Utilidades.espaciosEntrada(direccion.getText()), Utilidades.espaciosEntrada(email.getText()), Utilidades.espaciosEntrada(email.getText()), cc));
-        for(Cliente c: e.clientes){
-            System.out.println(c.getNombre()+ ", " + c.getId());
-        }
-        new NuevaCompra(e, cc);
-        this.dispose();
+        if(telefono.getText().length() == 10 && nombre.getText().length() > 3){
+            e.agregarCliente(new Cliente(Utilidades.espaciosEntrada(nombre.getText()), Utilidades.espaciosEntrada(direccion.getText()), Utilidades.espaciosEntrada(email.getText()), Utilidades.espaciosEntrada(telefono.getText()), cc));
+            new NuevaCompra(e, cc);
+            this.dispose();
+        }else JOptionPane.showMessageDialog(null, "Telefono invalido debe tener 10 digitos o nombre menor a tres letras");
     }//GEN-LAST:event_crearClienteActionPerformed
 
 

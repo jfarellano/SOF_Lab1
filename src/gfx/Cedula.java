@@ -76,6 +76,7 @@ public class Cedula extends javax.swing.JFrame {
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         if(0 < (int) cedula.getText().length()) {
             if(e.buscarCliente(Integer.parseInt(cedula.getText())) != null){
+                if(e.buscarCliente(Integer.parseInt(cedula.getText())).getPuntos() >= 100000) JOptionPane.showMessageDialog(null, "Muestre promocion al usuario");
                 new NuevaCompra(e, Integer.parseInt(cedula.getText()));
                 this.dispose();
             }else{
