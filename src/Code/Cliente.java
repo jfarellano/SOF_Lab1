@@ -85,6 +85,14 @@ public class Cliente {
         this.premio = premio;
     }
     
+    public float getTotal(){
+        float total = 0;
+        for(Factura f: compras){
+            total += f.getTotal();
+        }
+        return total;
+    }
+    
     public int getTamano(){
         int i = 0;
         for(Factura f: compras){

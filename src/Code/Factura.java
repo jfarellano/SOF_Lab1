@@ -14,7 +14,6 @@ public class Factura {
         this.total = total;
         this.cantidad = cant;
     }
-
     
     //Get_Set
     public String[][] getItems() {

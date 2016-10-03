@@ -1,30 +1,32 @@
 package gfx;
 
+import Code.Cliente;
 import Code.Empresa;
+import Code.Factura;
 import Code.Producto;
 import Code.Utilidades;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ListadoProductos extends javax.swing.JFrame {
-    
+
     Empresa e;
     int cantidad;
-    
+
     public ListadoProductos(Empresa e) {
         initComponents();
         this.e = e;
         cargarTabla();
-        
+
         this.setVisible(true);
         this.setLocationRelativeTo(null);
     }
-    
-    private void cargarTabla(){
+
+    private void cargarTabla() {
         cantidad = 0;
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         String[] row = new String[3];
-        for(Producto p: e.inventario){
+        for (Producto p : e.inventario) {
             row[0] = String.valueOf(e.inventario.indexOf(p));
             row[1] = Utilidades.espaciosSalida(p.getNombre());
             row[2] = String.valueOf(p.getPrecio());
@@ -32,12 +34,25 @@ public class ListadoProductos extends javax.swing.JFrame {
             cantidad++;
         }
     }
-    
-    private void clear(){
+
+    private void clear() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         int rowCount = model.getRowCount();
         for (int i = rowCount - 1; i >= 0; i--) {
             model.removeRow(i);
+        }
+    }
+
+    private void recalcularTotal() {
+        for (Cliente c : e.clientes) {
+            for (Factura f : c.compras) {
+                float total = 0;
+                for (int i = 0; i < f.getCantidad(); i++) {
+                    total += e.inventario.get(Integer.parseInt(f.getItems()[i][0])).getPrecio() * Float.parseFloat(f.getItems()[i][1]);
+                }
+                f.setTotal(total);
+            }
+
         }
     }
 
@@ -87,6 +102,11 @@ public class ListadoProductos extends javax.swing.JFrame {
         }
 
         modificar.setText("Modificar");
+        modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarActionPerformed(evt);
+            }
+        });
 
         eliminar.setText("Eliminar");
         eliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -169,7 +189,7 @@ public class ListadoProductos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-        if(e.buscarProducto(nombre.getText()) == null){
+        if (e.buscarProducto(nombre.getText()) == null) {
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             String[] row = new String[3];
             row[0] = String.valueOf(cantidad);
@@ -178,7 +198,9 @@ public class ListadoProductos extends javax.swing.JFrame {
             e.inventario.add(new Producto(nombre.getText(), Float.parseFloat(precio.getText())));
             model.addRow(row);
             cantidad++;
-        }else JOptionPane.showMessageDialog(null, "Producto ya existente");
+        } else {
+            JOptionPane.showMessageDialog(null, "Producto ya existente");
+        }
     }//GEN-LAST:event_agregarActionPerformed
 
     private void regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarActionPerformed
@@ -198,6 +220,17 @@ public class ListadoProductos extends javax.swing.JFrame {
         clear();
         cargarTabla();
     }//GEN-LAST:event_eliminarActionPerformed
+
+    private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
+        if (e.buscarProducto(nombre.getText()) != null) {
+            e.buscarProducto(nombre.getText()).setPrecio(Float.parseFloat(precio.getText()));
+            recalcularTotal();
+            clear();
+            cargarTabla();
+        } else {
+            JOptionPane.showMessageDialog(null, "Producto no existe");
+        }
+    }//GEN-LAST:event_modificarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
