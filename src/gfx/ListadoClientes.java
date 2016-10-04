@@ -29,8 +29,8 @@ public class ListadoClientes extends javax.swing.JFrame {
             row[0] = Utilidades.espaciosSalida(c.getNombre());
             row[1] = String.valueOf(c.getId());
             row[2] = Utilidades.espaciosSalida(c.getDireccion());
-            row[3] = c.getEmail();
-            row[4] = c.getTelefono();
+            row[3] = Utilidades.espaciosSalida(c.getDireccion());
+            row[4] = Utilidades.espaciosSalida(c.getTelefono());
             row[5] = String.valueOf(c.getPuntos());
             if(estado == 0){
                 model.addRow(row);
@@ -371,10 +371,10 @@ public class ListadoClientes extends javax.swing.JFrame {
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
         Cliente c = e.clientes.get(jTable1.getSelectedRow());
-        if(!direccion1.getText().equals("Direccion"))c.setDireccion(direccion1.getText());
-        if(!email1.getText().equals("E-Mail"))c.setEmail(email1.getText());
-        if((!nombre1.getText().equals("Nombre")) && nombre1.getText().length() > 3)c.setNombre(nombre1.getText());
-        if(!telefono1.getText().equals("Telefono") && telefono1.getText().length() == 10)c.setTelefono(telefono1.getText());
+        if(!direccion1.getText().equals("Direccion"))c.setDireccion(Utilidades.espaciosEntrada(direccion1.getText()));
+        if(!email1.getText().equals("E-Mail"))c.setEmail(Utilidades.espaciosEntrada(email1.getText()));
+        if((!nombre1.getText().equals("Nombre")) && nombre1.getText().length() > 3)c.setNombre(Utilidades.espaciosEntrada(nombre1.getText()));
+        if(!telefono1.getText().equals("Telefono") && telefono1.getText().length() == 10)c.setTelefono(Utilidades.espaciosEntrada(nombre1.getText()));
         clear();
         cargarTabla();
     }//GEN-LAST:event_modificarActionPerformed

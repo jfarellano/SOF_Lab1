@@ -1,1 +1,1 @@
-pan 300.0 queso 700.0 salchicha 800.0 
+pan 7000.0 salchicha 600.0 pan_de_queso 600.0 arroz_con_leche 300.0 arroz_con_pollo 1000.0 

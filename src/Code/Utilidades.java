@@ -16,6 +16,15 @@ public class Utilidades {
         }
     }
     
+    public static boolean numeros(String s){
+        for(int i = 0; i < s.length(); i++){
+            if(s.charAt(i) == 1 || s.charAt(i) == 2 || s.charAt(i) == 3 || s.charAt(i) == 4 || s.charAt(i) == 5 || s.charAt(i) == 6 || s.charAt(i) == 7 || s.charAt(i) == 8 || s.charAt(i) == 9 || s.charAt(i) == 0){
+                
+            }else return false;
+        }
+        return true;
+    }
+    
     public static String loadFileAsString(String path) {
         StringBuilder builder = new StringBuilder();
         try {

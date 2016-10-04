@@ -1,1 +1,1 @@
-Juan_Arellano Direccion_Juan_Arellano juan@mail.com 7894561230 1111111111 3000072 1 2 2016/10/02 22:45:19 7200.0 3 0 4 1 4 2 4 2016/10/03 12:11:28 3.0E8 1 0 1000000 
+John_Barbosa Direccion_del_rucho Mail_del_rucho 7894561230 1111111111 228 0 1 2016/10/03 14:37:30 22800.0 2 0 3 1 3 

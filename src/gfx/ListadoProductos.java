@@ -193,9 +193,9 @@ public class ListadoProductos extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             String[] row = new String[3];
             row[0] = String.valueOf(cantidad);
-            row[1] = Utilidades.espaciosEntrada(nombre.getText());
+            row[1] = Utilidades.espaciosSalida(nombre.getText());
             row[2] = Utilidades.espaciosEntrada(precio.getText());
-            e.inventario.add(new Producto(nombre.getText(), Float.parseFloat(precio.getText())));
+            e.inventario.add(new Producto(Utilidades.espaciosEntrada(nombre.getText()), Float.parseFloat(precio.getText())));
             model.addRow(row);
             cantidad++;
         } else {

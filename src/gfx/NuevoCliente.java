@@ -145,11 +145,13 @@ public class NuevoCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_emailMouseClicked
 
     private void crearClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearClienteActionPerformed
-        if(telefono.getText().length() == 10 && nombre.getText().length() > 3){
-            e.agregarCliente(new Cliente(Utilidades.espaciosEntrada(nombre.getText()), Utilidades.espaciosEntrada(direccion.getText()), Utilidades.espaciosEntrada(email.getText()), Utilidades.espaciosEntrada(telefono.getText()), cc));
-            new NuevaCompra(e, cc);
-            this.dispose();
-        }else JOptionPane.showMessageDialog(null, "Telefono invalido debe tener 10 digitos o nombre menor a tres letras");
+        if(Utilidades.numeros(telefono.getText()) && Utilidades.numeros(cedula.getText())){
+            if(telefono.getText().length() == 10 && nombre.getText().length() > 3){
+                e.agregarCliente(new Cliente(Utilidades.espaciosEntrada(nombre.getText()), Utilidades.espaciosEntrada(direccion.getText()), Utilidades.espaciosEntrada(email.getText()), Utilidades.espaciosEntrada(telefono.getText()), cc));
+                new NuevaCompra(e, cc);
+                this.dispose();
+            }else JOptionPane.showMessageDialog(null, "Telefono invalido debe tener 10 digitos o nombre menor a tres letras");
+        }else JOptionPane.showMessageDialog(null, "Cedula o telefono contiene letras");
     }//GEN-LAST:event_crearClienteActionPerformed
 
 
