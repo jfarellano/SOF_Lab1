@@ -25,14 +25,18 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="2" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="email" alignment="2" max="32767" attributes="0"/>
-                  <Component id="crearCliente" alignment="2" pref="366" max="32767" attributes="0"/>
-                  <Component id="jLabel1" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="nombre" alignment="2" max="32767" attributes="0"/>
                   <Component id="cedula" alignment="2" max="32767" attributes="0"/>
-                  <Component id="direccion" alignment="2" max="32767" attributes="0"/>
+                  <Component id="direccion" alignment="2" pref="366" max="32767" attributes="0"/>
                   <Component id="telefono" alignment="2" max="32767" attributes="0"/>
+                  <Component id="crearCliente" alignment="1" pref="366" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="jButton1" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -53,9 +57,11 @@
               <Component id="telefono" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="email" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="crearCliente" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
+              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -116,6 +122,14 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Empresa"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cancelar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

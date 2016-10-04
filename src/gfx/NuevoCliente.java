@@ -37,6 +37,7 @@ public class NuevoCliente extends javax.swing.JFrame {
         email = new javax.swing.JTextField();
         crearCliente = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,20 +86,30 @@ public class NuevoCliente extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel1.setText("Empresa");
 
+        jButton1.setText("Cancelar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(email)
-                    .addComponent(crearCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
-                    .addComponent(jLabel1)
-                    .addComponent(nombre)
-                    .addComponent(cedula)
-                    .addComponent(direccion)
-                    .addComponent(telefono))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(email, javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(nombre, javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(cedula, javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(direccion, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
+                    .addComponent(telefono, javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(crearCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -116,9 +127,11 @@ public class NuevoCliente extends javax.swing.JFrame {
                 .addComponent(telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(crearCliente)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
 
         pack();
@@ -145,22 +158,26 @@ public class NuevoCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_emailMouseClicked
 
     private void crearClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearClienteActionPerformed
-        if(Utilidades.numeros(telefono.getText()) && Utilidades.numeros(cedula.getText())){
+        if(Utilidades.numeros(telefono.getText()) && Utilidades.numeros(cedula.getText()) && (!Utilidades.letras(nombre.getText()))){
             if(telefono.getText().length() == 10 && nombre.getText().length() > 3){
                 e.agregarCliente(new Cliente(Utilidades.espaciosEntrada(nombre.getText()), Utilidades.espaciosEntrada(direccion.getText()), Utilidades.espaciosEntrada(email.getText()), Utilidades.espaciosEntrada(telefono.getText()), cc));
                 new NuevaCompra(e, cc);
                 this.dispose();
             }else JOptionPane.showMessageDialog(null, "Telefono invalido debe tener 10 digitos o nombre menor a tres letras");
-        }else JOptionPane.showMessageDialog(null, "Cedula o telefono contiene letras");
+        }else JOptionPane.showMessageDialog(null, "Cedula, telefono contiene letras o nombre contiene numeros");
     }//GEN-LAST:event_crearClienteActionPerformed
 
-
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new Cedula(e);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField cedula;
     private javax.swing.JButton crearCliente;
     private javax.swing.JTextField direccion;
     private javax.swing.JTextField email;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField nombre;
     private javax.swing.JTextField telefono;
